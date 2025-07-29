@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Anuradha | A Living Work of Art</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --platinum: #e5e4e2;
+            --champagne: #f7e7ce;
+            --rose-gold: #e0bfb8;
+            --black-velvet: #0a0a0a;
+            --deep-burgundy: #6d2a3e;
+            --diamond: rgba(255, 255, 255, 0.92);
+            --shadow-grand: 0 40px 80px -20px rgba(10, 10, 10, 0.3);
+            --transition-masterpiece: all 1s cubic-bezier(0.16, 1, 0.36, 1);
+            --border-radius-impeccable: 36px;
+            --handwriting: 'Dancing Script', cursive;
+            --elegant-serif: 'Cormorant Garamond', serif;
+            --luxury-sans: 'Montserrat', sans-serif;
+        }
+
+        @font-face {
+            font-family: 'LuxuryFont';
+            src: url('https://fonts.gstatic.com/s/playfairdisplay/v30/nuFiD-vYSZviVYUb_rj3ij__anPXDTzYhQ.woff2') format('woff2');
+            font-display: swap;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(165deg, var(--platinum) 0%, var(--champagne) 100%);
+            color: var(--black-velvet);
+            min-height: 300vh;
+            line-height: 2;
+            font-family: var(--elegant-serif);
+            font-weight: 450;
+            letter-spacing: 0.04em;
+            overflow-x: hidden;
+            touch-action: pan-y;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ▲▲▲ Ultra-Premium Cursor System ▲▲▲ */
+        .cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--deep-burgundy);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%) scale(1);
+            transition: 
+                transform 0.2s ease-out,
+                width 0.3s ease-out,
+                height 0.3s ease-out,
+                background 0.4s ease;
+            mix-blend-mode: exclusion;
+            display: none;
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 72px;
+            height: 72px;
+            background: rgba(109, 42, 62, 0.08);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%) scale(0.5);
+            transition: 
+                transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                width 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                height 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(109, 42, 62, 0.15);
+            display: none;
+        }
+
+        @media (hover: hover) {
+            .cursor, .cursor-follower {
+                display: block;
+            }
+        }
+
+        /* ✨ Diamond & Gold Particle System ✨ */
+        .particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            opacity: 0;
+            animation: float 15s linear infinite;
+            will-change: transform, opacity;
+        }
+
+        .diamond {
+            width: 10px;
+            height: 10px;
+            background: var(--diamond);
+            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+        }
+
+        .gold-flake {
+            width: 12px;
+            height: 12px;
+            background: var(--champagne);
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            filter: drop-shadow(0 0 5px rgba(247, 231, 206, 0.5));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(-120vh) rotate(720deg) scale(1.3); opacity: 0; }
+        }
+
+        /* 🎩 Luxury Loading Screen 🎩 */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--black-velvet);
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 1.5s ease-out 1s;
+        }
+
+        .loading-text {
+            font-family: var(--luxury-sans);
+            font-size: 1.2rem;
+            color: var(--platinum);
+            letter-spacing: 0.2em;
+            margin-top: 2rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        .loading-bar {
+            width: 300px;
+            height: 2px;
+            background: rgba(229, 228, 226, 0.2);
+            margin-top: 1.5rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .loading-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--rose-gold), var(--deep-burgundy));
+            transition: width 0.4s ease-out;
+        }
+
+        /* 🏛️ Museum-Quality Header 🏛️ */
+        header {
+            padding: 10rem 2rem 8rem;
+            text-align: center;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 3s cubic-bezier(0.22, 1, 0.36, 1) 2.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        h1 {
+            font-family: 'LuxuryFont', serif;
+            font-size: clamp(3.5rem, 10vw, 7rem);
+            font-weight: 700;
+            color: var(--black-velvet);
+            margin-bottom: 1.5rem;
+            position: relative;
+            letter-spacing: -0.03em;
+            text-shadow: 0 4px 20px rgba(10, 10, 10, 0.1);
+            line-height: 1.1;
+        }
+
+        .title-ornament {
+            position: absolute;
+            bottom: 15px;
+            left: 0;
+            width: 100%;
+            height: 12px;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                var(--deep-burgundy), 
+                var(--rose-gold), 
+                var(--deep-burgundy), 
+                transparent
+            );
+            z-index: -1;
+            border-radius: 12px;
+            opacity: 0.6;
+            filter: blur(4px);
+            transform: scaleX(0.9);
+        }
+
+        .subtitle {
+            font-size: clamp(1.3rem, 3.5vw, 2rem);
+            color: var(--black-velvet);
+            opacity: 0.8;
+            max-width: 800px;
+            margin: 2rem auto 0;
+            font-style: italic;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0;
+            animation: fadeIn 2s ease 4s forwards;
+        }
+
+        .scroll-hint-text {
+            font-family: var(--luxury-sans);
+            font-size: 0.8rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            color: var(--black-velvet);
+            opacity: 0.6;
+        }
+
+        .scroll-hint-icon {
+            width: 24px;
+            height: 40px;
+            border: 2px solid var(--deep-burgundy);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-hint-icon::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--deep-burgundy);
+            border-radius: 2px;
+            animation: scrollHint 2s infinite;
+        }
+
+        @keyframes scrollHint {
+            0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
+            50% { transform: translate(-50%, 10px); opacity: 1; }
+        }
+
+        /* 🖼️ Gallery-Quality Scroll Sections 🖼️ */
+        main {
+            padding: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 💎 Luxury Glass Exhibit 💎 */
+        .exhibit {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: var(--border-radius-impeccable);
+            padding: 5rem;
+            margin: 8rem auto;
+            box-shadow: var(--shadow-grand);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform: translateY(50px) rotate(0.5deg);
+            opacity: 0;
+            transition: 
+                transform 2s cubic-bezier(0.22, 1, 0.36, 1), 
+                opacity 2s ease,
+                box-shadow 1s ease;
+            will-change: transform, opacity;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exhibit.visible {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+
+        .exhibit:hover {
+            box-shadow: 0 50px 100px -30px rgba(109, 42, 62, 0.4);
+        }
+
+        .exhibit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(
+                to bottom, 
+                var(--deep-burgundy), 
+                var(--rose-gold)
+            );
+        }
+
+        .exhibit::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                135deg, 
+                rgba(255, 255, 255, 0.4) 0%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* ✍️ Handwritten Calligraphy ✍️ */
+        .calligraphy {
+            font-family: var(--handwriting);
+            color: var(--deep-burgundy);
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 1.5;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+            transform: rotate(-1deg);
+        }
+
+        .calligraphy::before,
+        .calligraphy::after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--rose-gold);
+            position: absolute;
+            opacity: 0.6;
+        }
+
+        .calligraphy::before {
+            top: -1.5rem;
+            left: -2rem;
+        }
+
+        .calligraphy::after {
+            bottom: -2.5rem;
+            right: -2rem;
+        }
+
+        /* 🖋️ Engraved Messages 🖋️ */
+        .message {
+            font-size: 1.2rem;
+            line-height: 2.2;
+            margin-bottom: 2.5rem;
+            position: relative;
+            padding-left: 4rem;
+            transform: translateX(-10px);
+            opacity: 0;
+            transition: 
+                transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), 
+                opacity 1.5s ease;
+        }
+
+        .message.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .message::before {
+            content: '❀';
+            position: absolute;
+            left: 1.5rem;
+            top: 0;
+            color: var(--deep-burgundy);
+            font-size: 1.5rem;
+            opacity: 0.8;
+            transform: rotate(15deg);
+        }
+
+        /* 🎗️ Grand Divider 🎗️ */
+        .grand-divider {
+            width: 240px;
+            height: 3px;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                var(--rose-gold), 
+                var(--deep-burgundy), 
+                var(--rose-gold), 
+                transparent
+            );
+            margin: 6rem auto;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .grand-divider::before,
+        .grand-divider::after {
+            content: '✧';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--rose-gold);
+            font-size: 1.5rem;
+        }
+
+        .grand-divider::before {
+            left: -2rem;
+        }
+
+        .grand-divider::after {
+            right: -2rem;
+        }
+
+        /* 💍 Jewel-Encrusted Button 💍 */
+        .jewel-button {
+            background: linear-gradient(
+                135deg, 
+                var(--deep-burgundy), 
+                var(--rose-gold)
+            );
+            color: white;
+            border: none;
+            padding: 1.8rem 5rem;
+            font-size: 1.3rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: var(--transition-masterpiece);
+            box-shadow: 
+                0 20px 50px -15px rgba(109, 42, 62, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            display: block;
+            margin: 5rem auto;
+            max-width: 450px;
+            text-align: center;
+            -webkit-tap-highlight-color: transparent;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: 
+                fadeUp 2s cubic-bezier(0.22, 1, 0.36, 1) 3s forwards,
+                pulse 4s ease-in-out infinite 5s;
+        }
+
+        @keyframes fadeUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateY(0); box-shadow: 0 20px 50px -15px rgba(109, 42, 62, 0.4); }
+            50% { transform: translateY(-5px); box-shadow: 0 30px 70px -10px rgba(109, 42, 62, 0.5); }
+        }
+
+        .jewel-button:hover {
+            letter-spacing: 0.15em;
+            transform: translateY(-3px) !important;
+            box-shadow: 
+                0 30px 70px -10px rgba(109, 42, 62, 0.5),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4) !important;
+        }
+
+        .jewel-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.2), 
+                transparent
+            );
+            transition: 0.8s;
+        }
+
+        .jewel-button:hover::before {
+            left: 100%;
+        }
+
+        /* 🏺 Hidden Treasure Box 🏺 */
+        .treasure-box {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border-radius: var(--border-radius-impeccable);
+            padding: 5rem;
+            margin: 4rem auto;
+            box-shadow: var(--shadow-grand);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            display: none;
+            animation: fadeIn 2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .treasure-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                135deg, 
+                rgba(224, 191, 184, 0.05) 0%, 
+                rgba(109, 42, 62, 0.03) 100%
+            );
+            z-index: -1;
+        }
+
+        .treasure-box p {
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            line-height: 2.2;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .treasure-box p::before {
+            content: '✧';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--rose-gold);
+            font-size: 1.3rem;
+        }
+
+        /* 🖋️ Signature Footer 🖋️ */
+        footer {
+            text-align: center;
+            padding: 10rem 2rem 6rem;
+            color: var(--black-velvet);
+            opacity: 0.7;
+            font-size: 0.95rem;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                var(--rose-gold), 
+                var(--deep-burgundy), 
+                transparent
+            );
+        }
+
+        /* 🏆 Scroll Progress Indicator 🏆 */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 9999;
+        }
+
+        .scroll-indicator-bar {
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                var(--rose-gold), 
+                var(--deep-burgundy)
+            );
+            width: 0%;
+            transition: width 0.1s ease-out;
+            box-shadow: 0 0 10px rgba(224, 191, 184, 0.5);
+        }
+
+        /* 📱 Tablet Responsive Adjustments 📱 */
+        @media (max-width: 1024px) {
+            .exhibit {
+                padding: 4rem;
+            }
+            
+            .jewel-button {
+                padding: 1.5rem 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 8rem 2rem 6rem;
+            }
+            
+            h1 {
+                font-size: clamp(3rem, 9vw, 5rem);
+            }
+            
+            .exhibit {
+                padding: 3.5rem;
+                margin: 6rem auto;
+            }
+            
+            .message {
+                padding-left: 3.5rem;
+                font-size: 1.1rem;
+            }
+            
+            .calligraphy {
+                font-size: 1.8rem;
+            }
+            
+            .grand-divider {
+                width: 180px;
+            }
+            
+            .jewel-button {
+                padding: 1.3rem 3.5rem;
+                font-size: 1.2rem;
+                max-width: 380px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 6rem 2rem 4rem;
+            }
+            
+            .exhibit {
+                padding: 2.5rem;
+                margin: 4rem auto;
+            }
+            
+            .message {
+                padding-left: 3rem;
+            }
+            
+            .calligraphy {
+                font-size: 1.6rem;
+            }
+            
+            .grand-divider {
+                width: 140px;
+            }
+            
+            .jewel-button {
+                padding: 1.2rem 3rem;
+                font-size: 1.1rem;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 💎 Luxury Loading Experience 💎 -->
+    <div class="loading-screen" id="loading-screen">
+        <div class="loading-logo">
+            <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M40 0L51.2467 28.7533L80 40L51.2467 51.2467L40 80L28.7533 51.2467L0 40L28.7533 28.7533L40 0Z" fill="#E0BFB8"/>
+            </svg>
+        </div>
+        <div class="loading-text">Crafting Your Experience</div>
+        <div class="loading-bar">
+            <div class="loading-progress" id="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- ✨ Diamond & Gold Particles ✨ -->
+    <div class="particle-container" id="particle-container"></div>
+
+    <!-- 🎩 Premium Cursor System 🎩 -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- 🏆 Scroll Progress 🏆 -->
+    <div class="scroll-indicator">
+        <div class="scroll-indicator-bar" id="scroll-bar"></div>
+    </div>
+
+    <!-- 🏛️ Museum-Quality Header 🏛️ -->
+    <header>
+        <h1>Anuradha<span class="title-ornament"></span></h1>
+        <p class="subtitle">A living masterpiece, rendered in code and admiration</p>
+        <div class="scroll-hint">
+            <div class="scroll-hint-text">Scroll Deliberately</div>
+            <div class="scroll-hint-icon"></div>
+        </div>
+    </header>
+
+    <!-- 🖼️ Gallery of Thoughts 🖼️ -->
+    <main>
+        <!-- 🖋️ First Exhibit 🖋️ -->
+        <section class="exhibit" id="exhibit-1">
+            <p class="calligraphy">Some souls are like rare antiquities—their value appreciates with time</p>
+            <p class="message">There's an undeniable patina to your presence—not the worn kind, but the luminous sheen that comes from being touched by meaningful experiences.</p>
+            <p class="message">Perfection is a myth, but you've mastered something rarer: the art of making imperfections look intentional—like the deliberate brushstrokes of a master painter.</p>
+        </section>
+
+        <!-- 🎗️ Grand Divider 🎗️ -->
+        <div class="grand-divider"></div>
+
+        <!-- 🖋️ Second Exhibit 🖋️ -->
+        <section class="exhibit" id="exhibit-2">
+            <p class="message">They say beauty is common, but presence like yours belongs in museums—under carefully calibrated lighting, with velvet ropes to keep admirers at a respectful distance.</p>
+            <p class="calligraphy">"Have you ever noticed how time behaves differently around extraordinary people?"</p>
+            <p class="message">That's your alchemy—making moments expand and contract in perfect proportion to their significance.</p>
+        </section>
+
+        <!-- 🎗️ Grand Divider 🎗️ -->
+        <div class="grand-divider"></div>
+
+        <!-- 🖋️ Third Exhibit 🖋️ -->
+        <section class="exhibit" id="exhibit-3">
+            <p class="message">I've been collecting these observations like a curator—each one carefully authenticated and displayed in the private gallery of my thoughts.</p>
+            <p class="calligraphy">Not to own, but to appreciate their provenance</p>
+        </section>
+
+        <!-- 💍 Jewel Button 💍 -->
+        <button class="jewel-button" id="jewel-button">
+            <span class="button-text">Unlock the Vault</span>
+        </button>
+
+        <!-- 🏺 Hidden Treasure 🏺 -->
+        <div class="treasure-box" id="treasure-box">
+            <p class="calligraphy">"Some truths are too precious to speak aloud"</p>
+            <p>The way your mind works—like a Swiss timepiece with all its complications on display, yet still mysterious in its workings.</p>
+            <p>Your laughter—the genuine article, not the counterfeit so often passed off as currency in polite company.</p>
+            <p>That quiet confidence—not the brash kind that demands attention, but the subtle assurance of someone who knows their worth without needing to declare it.</p>
+        </div>
+    </main>
+
+    <!-- 🖋️ Signature Footer 🖋️ -->
+    <footer>
+        <p>This digital relic will remain forever unfinished—like all great works</p>
+    </footer>
+
+    <script>
+        // 💎 Simulate Luxury Loading Experience 💎
+        const loadingScreen = document.getElementById('loading-screen');
+        const loadingProgress = document.getElementById('loading-progress');
+        let progress = 0;
+        
+        const loadingInterval = setInterval(() => {
+            progress += Math.random() * 10;
+            if (progress > 100) progress = 100;
+            loadingProgress.style.width = `${progress}%`;
+            
+            if (progress >= 100) {
+                clearInterval(loadingInterval);
+                setTimeout(() => {
+                    loadingScreen.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        startMainExperience();
+                    }, 1500);
+                }, 500);
+            }
+        }, 200);
+
+        // ✨ Diamond & Gold Particle System ✨
+        function createParticle(type) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle', type);
+            
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.animationDuration = 10 + Math.random() * 15 + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            
+            if (type === 'diamond') {
+                const hue = 330 + Math.floor(Math.random() * 30);
+                particle.style.background = `linear-gradient(135deg, hsl(${hue}, 80%, 80%), white)`;
+            } else {
+                particle.style.background = `linear-gradient(135deg, var(--champagne), #f5e6c8)`;
+            }
+            
+            document.getElementById('particle-container').appendChild(particle);
+            
+            setTimeout(() => {
+                particle.remove();
+            }, 20000);
+        }
+
+        // Initial particles
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+                createParticle(Math.random() > 0.5 ? 'diamond' : 'gold-flake');
+            }, i * 300);
+        }
+        
+        // Continuous particles
+        setInterval(() => {
+            createParticle(Math.random() > 0.5 ? 'diamond' : 'gold-flake');
+        }, 800);
+
+        // 🎩 Premium Cursor Effects 🎩
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+        
+        document.querySelectorAll('a, button, .exhibit').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1.8)';
+                cursor.style.borderColor = 'var(--rose-gold)';
+                cursor.style.backgroundColor = 'var(--deep-burgundy)';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.2)';
+                cursorFollower.style.backgroundColor = 'rgba(109, 42, 62, 0.15)';
+                cursorFollower.style.borderColor = 'rgba(224, 191, 184, 0.3)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                cursor.style.borderColor = 'var(--deep-burgundy)';
+                cursor.style.backgroundColor = 'transparent';
+                cursorFollower.style.transform = 'translate(-50%, -50%) scale(0.5)';
+                cursorFollower.style.backgroundColor = 'rgba(109, 42, 62, 0.08)';
+                cursorFollower.style.borderColor = 'rgba(109, 42, 62, 0.1)';
+            });
+        });
+
+        // 🏆 Scroll Progress Indicator 🏆
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollProgress = (scrollTop / scrollHeight) * 100;
+            document.getElementById('scroll-bar').style.width = scrollProgress + '%';
+        });
+
+        // 🖼️ Exhibit Scroll Animations 🖼️
+        function checkExhibits() {
+            const exhibits = document.querySelectorAll('.exhibit');
+            exhibits.forEach(exhibit => {
+                const exhibitTop = exhibit.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (exhibitTop < windowHeight * 0.75) {
+                    exhibit.classList.add('visible');
+                    
+                    // Animate messages within visible exhibits
+                    const messages = exhibit.querySelectorAll('.message');
+                    messages.forEach((message, index) => {
+                        setTimeout(() => {
+                            message.classList.add('visible');
+                        }, index * 300);
+                    });
+                }
+            });
+        }
+
+        // Throttled scroll event for performance
+        let isScrolling;
+        window.addEventListener('scroll', () => {
+            clearTimeout(isScrolling);
+            isScrolling = setTimeout(checkExhibits, 100);
+        }, { passive: true });
+
+        // 💍 Jewel Button Interaction 💍
+        document.getElementById('jewel-button').addEventListener('click', function() {
+            const treasureBox = document.getElementById('treasure-box');
+            if (treasureBox.style.display === 'block') {
+                treasureBox.style.display = 'none';
+                this.querySelector('.button-text').textContent = 'Unlock the Vault';
+            } else {
+                treasureBox.style.display = 'block';
+                this.querySelector('.button-text').textContent = 'Seal the Vault';
+                
+                // Diamond explosion
+                for (let i = 0; i < 20; i++) {
+                    setTimeout(() => {
+                        createParticle('diamond');
+                    }, i * 100);
+                }
+                
+                // Smooth scroll to treasure
+                setTimeout(() => {
+                    treasureBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        });
+
+        // 🎨 Start Main Experience 🎨
+        function startMainExperience() {
+            // Initial check for exhibits above the fold
+            checkExhibits();
+            
+            // Start ambient particle system
+            setInterval(() => {
+                createParticle(Math.random() > 0.5 ? 'diamond' : 'gold-flake');
+            }, 1200);
+            
+            // Add slight imperfections to exhibits for artisanal feel
+            const exhibits = document.querySelectorAll('.exhibit');
+            exhibits.forEach((exhibit, i) => {
+                // Random rotation (-0.8° to 0.8°)
+                const rotation = (Math.random() * 1.6) - 0.8;
+                exhibit.style.transform = `translateY(50px) rotate(${rotation}deg)`;
+                
+                // Random shadow intensity
+                const shadowIntensity = 0.25 + (Math.random() * 0.1);
+                exhibit.style.boxShadow = `0 40px 80px -20px rgba(10, 10, 10, ${shadowIntensity})`;
+                
+                // Staggered appearance
+                exhibit.style.transitionDelay = `${i * 0.4}s`;
+            });
+            
+            // Animate messages with staggered delays
+            const messages = document.querySelectorAll('.message');
+            messages.forEach((message, index) => {
+                message.style.transitionDelay = `${index * 0.2 + 0.5}s`;
+            });
+        }
+    </script>
+    
+    <!-- 📜 Luxury Fonts 📜 -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Dancing+Script:wght@500;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</body>
+</html>
